@@ -2,6 +2,7 @@ import os
 import json
 import re
 import warnings
+import sys
 from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
@@ -18,6 +19,8 @@ os.makedirs('uploads', exist_ok=True)
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'webp'}
 
 API_KEY = os.getenv('GEMINI_API_KEY')
+print(f"Python version: {sys.version}", flush=True)
+print(f"API_KEY found: {bool(API_KEY)}", flush=True)
 if not API_KEY:
     raise ValueError('Please set the GEMINI_API_KEY environment variable')
 
@@ -225,3 +228,5 @@ Reply with ONLY valid JSON — no markdown, no extra text.
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
+print("App loaded successfully", flush=True)
